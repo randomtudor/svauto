@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.math.BigDecimal;
+
 import static helpers.WebElementHelper.areVisible;
 
 public class ShoppingCartSummaryPage extends BasePage {
@@ -29,6 +31,9 @@ public class ShoppingCartSummaryPage extends BasePage {
 
   @FindBy(css = "input#cgv")
   private WebElement agreeTermsOfService;
+
+  @FindBy(css = "span#total_price")
+  private WebElement cartTotal;
 
   public ShoppingCartSummaryPage(final WebDriver driver) {
     super(driver);
@@ -62,6 +67,10 @@ public class ShoppingCartSummaryPage extends BasePage {
 
   public String getPageHeadingText() {
     return this.pageHeading.getText();
+  }
+
+  public BigDecimal getCartTotal() {
+    return new BigDecimal(this.cartTotal.getText().substring(1));
   }
 
   public void open() {

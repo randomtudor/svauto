@@ -1,8 +1,6 @@
 package helpers;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class ReadPropFile {
@@ -19,7 +17,8 @@ public class ReadPropFile {
         throw new FileNotFoundException(
             "property file '" + propertiesFile + "' not found in the classpath");
       }
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw e;
     } finally {
       try {
@@ -29,5 +28,20 @@ public class ReadPropFile {
       }
       return prop;
     }
+  }
+
+  public Properties getPropertyValue(String file) {
+    File propertiesFile = new File("src/testTT/resources/app.properties");
+    String absolutePath = propertiesFile.getAbsolutePath();
+    Properties prop = new Properties();
+
+    try (BufferedReader inputStream = new BufferedReader(new FileReader(absolutePath))) {
+      prop.load(inputStream);
+    }
+    catch (IOException e) {
+      System.out.println("Caught IOException: " + e.getMessage());
+    }
+
+    return prop;
   }
 }

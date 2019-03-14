@@ -1,7 +1,9 @@
 package helpers;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.helper.Validate;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -15,24 +17,26 @@ import java.util.stream.IntStream;
 
 /** General helper class */
 public class Utilities {
-  public static final String APP_FILE = "./app.properties";
+  //public static final String APP_FILE = "./app.properties";
+  public static final String APP_FILE = "src/test/resources/app.properties";
   private static final Logger LOG = Logger.getLogger(Class.class.getName());
   private static final String SLEEP_INTERRUPTED = "Sleep interrupted!";
 
-  public static String getPropertyValue(Properties properties, String propertyName) {
-    if (StringUtils.isBlank(propertyName)) {
-      throw new IllegalArgumentException("System property name cannot be null or blank");
-    }
+  public static String getPropertyValue(String propertyName) {
+    Validate.notNull(propertyName, "System property name cannot be null or blank");
 
-    final String propertyValue = properties.getProperty(propertyName);
+    final String propertyValue = new ReadPropFile().getPropertyValue(APP_FILE).getProperty(propertyName);
+
     if (StringUtils.isNotBlank(propertyValue)) {
       return propertyValue;
-    } else {
+    }
+    else {
       throw new IllegalArgumentException(
           String.format("Environment variable '%s' does not exist or is blank", propertyValue));
     }
   }
 
+  /*
   public static Properties getPropertyFileContent(String propertiesFileName) {
     return new ReadPropFile().getPropertiesValue(propertiesFileName);
   }
@@ -40,6 +44,7 @@ public class Utilities {
   public static String getPropertyFromAppProp(String prop) {
     return getPropertyValue(getPropertyFileContent(APP_FILE), prop);
   }
+  */
 
   public static Object executeScript(
       final WebDriver driver, final String script, final Object... args) {

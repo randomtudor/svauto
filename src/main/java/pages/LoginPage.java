@@ -20,11 +20,9 @@ public class LoginPage extends BasePage {
   @FindBy(id = "SubmitLogin")
   private WebElement logInButton;
 
-  // new element
   @FindBy(id = "email_create")
   private WebElement createAccountEmail;
 
-  // new element
   @FindBy(id = "SubmitCreate")
   private WebElement createAccountButton;
 
@@ -48,7 +46,6 @@ public class LoginPage extends BasePage {
     this.logInButton.click();
   }
 
-  // new method
   public void newAccountRegistration(final String email) {
     setFieldValue(this.createAccountEmail, email);
     clickAccountButton();

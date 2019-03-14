@@ -85,7 +85,7 @@ public class RegistrationPage extends BasePage {
 
   @Override
   protected boolean isValid() {
-    return areVisible(this.accountCreationForm, this.createAccountButton);
+    return areVisible(this.createAccountButton);
   }
 
   public void fillAccountData(final AccountData accountData) {

@@ -27,8 +27,15 @@ public class AccountData {
         accountData.setFirstName(Utilities.randomString(6, true, false));
         accountData.setLastName(Utilities.randomString(6, true, false));
         accountData.setPassword(Utilities.randomString(12, true, true));
-        accountData.setDayOfBirth(Utilities.randomNumber(1, 31));
         accountData.setMonthOfBirth(Utilities.randomNumber(1, 12));
+
+        if (accountData.getMonthOfBirth().equals("2"))
+          accountData.setDayOfBirth(Utilities.randomNumber(1, 28));
+        else if (Integer.parseInt(accountData.getMonthOfBirth()) % 2 == 0)
+          accountData.setDayOfBirth(Utilities.randomNumber(1,30));
+        else
+          accountData.setDayOfBirth(Utilities.randomNumber(1,31));
+
         accountData.setYearOfBirth(Utilities.randomNumber(1900, 2019));
         accountData.setCompany(Utilities.randomString(12, true, false));
         accountData.setAdress(Utilities.randomString(12, true, false));
@@ -41,7 +48,7 @@ public class AccountData {
         accountData.setType(TestType.POSITIVE);
         break;
       case NEGATIVE:
-        accountData.email = "invalidMail";
+        accountData.setEmail(randomEmail());
         accountData.setFirstName(Utilities.randomString(12, true, false) + "101");
         accountData.setLastName(Utilities.randomString(12, true, false) + "102");
         accountData.setPassword(Utilities.randomString(24, true, true) + "!@#$%^&*()");
