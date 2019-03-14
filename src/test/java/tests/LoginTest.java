@@ -1,5 +1,6 @@
 package tests;
 
+import helpers.ConfigPropertiesFile;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,11 +8,14 @@ import pages.DashboardPage;
 import pages.LoginPage;
 import pages.MyAccountPage;
 
-import static helpers.Utilities.getPropertyFromAppProp;
+import java.util.Properties.*;
+
+//import static helpers.Utilities.getPropertyFromAppProp;
+import static helpers.Utilities.getPropertyValue;
 
 public class LoginTest extends BaseTest {
 
-  private DashboardPage dashboardPage = null;
+  private DashboardPage dashboardPage;
   private LoginPage loginPage = null;
   private MyAccountPage myAccountPage = null;
 
@@ -19,8 +23,15 @@ public class LoginTest extends BaseTest {
   private final String password;
 
   public LoginTest() {
-    this.email = getPropertyFromAppProp("email");
-    this.password = getPropertyFromAppProp("password");
+    ConfigPropertiesFile properties = new ConfigPropertiesFile();
+
+    this.email = properties.getEmail();
+    this.password = properties.getPassword();
+
+    System.out.println("EMAIL: " + this.email);
+    System.out.println("PASSWORD: " + this.password);
+
+    System.exit(0);
   }
 
   @BeforeMethod
